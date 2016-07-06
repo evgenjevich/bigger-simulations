@@ -1,4 +1,4 @@
-
+#BIGGER SIMULATION REPOSITORY
 # coding: utf-8
 
 # In[ ]:
@@ -19,7 +19,7 @@ def calc_dt(elapsed_time, dt, dt_old, dump_to_file, dump_times, filename):
         dt = dt_old
         dt = dt * 1.1
         dump_to_file = False
-        filename = '1a_{0}_step{1}_data_time-{2:.2f}.npz'.format(N, str(steps).rjust(6, '0'), elapsed+dt)
+        # filename = '1a_{0}_step{1}_data_time-{2:.2f}.npz'.format(N, str(steps).rjust(6, '0'), elapsed+dt)
     else:
         dt_old = dt
         dt = dt * 1.1
@@ -31,7 +31,7 @@ def calc_dt(elapsed_time, dt, dt_old, dump_to_file, dump_times, filename):
                 dump_to_file = True
                 
                 #dump_time files will have .mpz.npz extension
-                filename = '1a_{0}_step{1}_data_time-{2:.2f}.mpz.npz'.format(N, str(steps).rjust(6, '0'), elapsed+dt) 
+                # filename = '1a_{0}_step{1}_data_time-{2:.2f}.mpz.npz'.format(N, str(steps).rjust(6, '0'), elapsed+dt) 
                 del dump_times[0]
 
     return dt, dt_old, dump_times, dump_to_file, filename
@@ -80,7 +80,7 @@ M = 5.0
 c_0 = 0.5
 epsilon = 0.01
 rho_s = 5.0
-filepath = os.path.join('/data/aem1/new1a/corr-sumatra2/Data', sumatra_label) # 
+filepath = os.path.join('/data/aem1/new1a/bigger-simulations/Data', sumatra_label) # 
 
 # solution variable
 c_var = fp.CellVariable(mesh=mesh, name=r"$c$", hasOld=True)
@@ -130,8 +130,8 @@ dt = 0.01
 dt_old = dt
 tolerance = 1e-1
 dump_to_file = False
-filename = '1a_{0}_step{1}_data_time-{2:.2f}.npz'.format(N, str(steps).rjust(6, '0'), elapsed)
-
+# filename = '1a_{0}_step{1}_data_time-{2:.2f}.npz'.format(N, str(steps).rjust(6, '0'), elapsed)
+filename = 'anushka'
 # controls on how long the simulation runs: steps, duration, or both
 duration = 500
 
@@ -153,7 +153,10 @@ while (steps <= total_steps) and (elapsed <= duration):
         if dump_to_file or steps%10==0:
             print steps
             print elapsed
-
+            
+            if dump_to_file: filename = '1a_{0}_step{1}_data_time-{2:.2f}.mpz.npz'.format(N, str(steps).rjust(6, '0'), elapsed)
+            else: filename = '1a_{0}_step{1}_data_time-{2:.2f}.npz'.format(N, str(steps).rjust(6, '0'), elapsed)
+            
             np.savez(os.path.join(filepath,filename),
                      c_var_array=np.array(c_var),
                      dt=dt,
